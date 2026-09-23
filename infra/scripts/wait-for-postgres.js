@@ -1,5 +1,5 @@
 const { exec } = require("node:child_process");
-const { setTimeout: sleep } = require("node:timers/promises");
+//const { setTimeout: sleep } = require("node:timers/promises");
 
 function checkPostgres() {
   exec("docker exec postgres-dev pg_isready --host localhost", handleReturn);
@@ -8,7 +8,7 @@ function checkPostgres() {
     if (stdout.search("accepting connections") === -1) {
       process.stdout.write(".");
 
-      await sleep(1000);
+      //await sleep(1000);
 
       checkPostgres();
 
