@@ -4,10 +4,10 @@
   "description": "Repositório para receber os projetos do curso.dev onde estou atualizando minhas stacks de tecnologias.",
   "main": "index.js",
   "scripts": {
-    "dev": "node infra/scripts/dev.js && npm run services:up && npm run services:wait:database && npm run migrations:up && next dev -p 3000",
+    "dev": "npm run services:up && npm run services:wait:database && npm run migrations:up && node infra/scripts/dev.js -p 3000",
     "test": "npm run services:up && concurrently -n next,jest --hide next --kill-others --success command-jest \"next dev -p 3000\" \"jest --runInBand --verbose\"",
     "posttest": "npm run services:stop",
-    "test:watch": "jest --watchAll --runInBand",
+    "test:watch": "jest --watchAll --runInBand --verbose",
     "services:up": "docker compose -f infra/compose.yaml up -d",
     "services:stop": "docker compose -f infra/compose.yaml stop",
     "services:down": "docker compose -f infra/compose.yaml down",
