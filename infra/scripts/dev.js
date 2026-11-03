@@ -2,13 +2,9 @@ const { spawn, spawnSync } = require("node:child_process");
 
 const nextBin = require.resolve("next/dist/bin/next");
 
-const child = spawn(
-  process.execPath,
-  [nextBin, "dev", ...process.argv.slice(2)],
-  {
-    stdio: "inherit",
-  },
-);
+const child = spawn(process.execPath, [nextBin, "dev", ...process.argv.slice(2)], {
+  stdio: "inherit",
+});
 
 // O Ctrl+C já chega no processo do Next, porque ele está no mesmo terminal.
 // Aqui só impedimos que o wrapper morra antes de rodar a limpeza.
@@ -28,11 +24,7 @@ function cleanup() {
     shell: true, // necessário no Windows, onde o npm é um .cmd
   });
   if (result.status !== 0) {
-    console.error(
-      "🔴 Falha ao parar os serviços (exit code",
-      result.status,
-      ")",
-    );
+    console.error("🔴 Falha ao parar os serviços (exit code", result.status, ")");
   }
 }
 
