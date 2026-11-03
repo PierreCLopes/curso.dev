@@ -41,8 +41,7 @@ function DatabaseStatus() {
   let opened_connections = "Carregando...";
 
   if (!isLoading && data) {
-    ({ version, max_connections, opened_connections } =
-      data.dependencies.database);
+    ({ version, max_connections, opened_connections } = data.dependencies.database);
   }
 
   return (
