@@ -5,6 +5,7 @@ import { ValidationError, NotFoundError } from "infra/errors.js";
 async function create(userInputValues) {
   await validateUniqueUsername(userInputValues.username);
   await validateUniqueEmail(userInputValues.email);
+  await validatePassword(userInputValues.password);
   await hashPasswordInObject(userInputValues);
 
   const newUser = await runInsertQuery(userInputValues);
@@ -22,6 +23,15 @@ async function create(userInputValues) {
     });
 
     return results.rows[0];
+  }
+
+  async function validatePassword(password) {
+    if (!password || !password.trim()) {
+      throw new ValidationError({
+        message: "A senha não pode ser vazia.",
+        action: "Informe uma senha para realizar esta operação.",
+      });
+    }
   }
 }
 
